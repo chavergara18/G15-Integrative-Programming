@@ -24,6 +24,10 @@ SECRET_KEY = 'django-insecure-8l7%+3kepfciw+amb@*3xi*t0n*yv0%2(%s9mep6#tw^-lx9*i
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 ALLOWED_HOSTS = []
 
@@ -40,13 +44,55 @@ INSTALLED_APPS = [
     'rest_framework',
     'posts',
     'rest_framework.authtoken',
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
+    "django_extensions",
 ]
+
+SITE_ID = 1
+
+# Authentication Backends
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "APP": {
+            "client_id": "YOUR_CLIENT_ID",
+            "secret": "YOUR_CLIENT_SECRET",
+            "key": "",
+        },
+        "SCOPE": ["email", "profile"],
+        "AUTH_PARAMS": {"access_type": "online"},
+    }
+}
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:8000",  # Localhost
+    "http://localhost:8000",
+]
+
+CSRF_COOKIE_SECURE = False 
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
 }
+
+SITE_ID = 1
+
 
 
 MIDDLEWARE = [
@@ -55,9 +101,13 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CSRF_COOKIE_SECURE = False  # Set to True in production with HTTPS
+SESSION_COOKIE_SECURE = False  # Set to True in production
 
 ROOT_URLCONF = 'CONNECTLYPROJECT.urls'
 
