@@ -23,10 +23,6 @@ urlpatterns = [
     path('api/', include('posts.urls')),  
     path("api/", include("posts.urls")), 
     path('api/token/', include('dj_rest_auth.urls')),  
-
-    
-
-    # ✅ Google Authentication Endpoints
     path('auth/google/login/', GoogleLogin.as_view(), name='google_login'),
     path('auth/google/verify/', GoogleAuthVerifyView.as_view(), name='google_verify'),
 ]

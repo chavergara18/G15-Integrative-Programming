@@ -11,7 +11,7 @@ from .views import (
 from .views import NewsFeedView
 
 urlpatterns = [
-    # Post-related endpoints
+    
     path("posts/", PostListCreateView.as_view(), name="post-list"),
     path("posts/<int:pk>/", PostRetrieveUpdateDeleteView.as_view(), name="post-detail"),
     path("posts/<int:post_id>/like/", LikePostView.as_view(), name="like-post"),
@@ -22,12 +22,10 @@ urlpatterns = [
     path("feed/", NewsFeedView.as_view(), name="news-feed"),
     
 
-    # Authentication Endpoints
-    path("auth/", include("dj_rest_auth.urls")),  # Login, Logout, etc.
-    path("auth/registration/", include("dj_rest_auth.registration.urls")),  # Signup
-
-    # Google OAuth Login
-    path("auth/social/", include("allauth.socialaccount.urls")),  # ✅ Use this for social login
+    
+    path("auth/", include("dj_rest_auth.urls")), 
+    path("auth/registration/", include("dj_rest_auth.registration.urls")),  
+    path("auth/social/", include("allauth.socialaccount.urls")),  
 ]
 
 

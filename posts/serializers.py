@@ -5,7 +5,7 @@ class PostSerializer(serializers.ModelSerializer):
     title = serializers.CharField(max_length=255, required=True)
     content = serializers.CharField(required=True)
 
-    # Add like and comment counts to the post response
+    
     likes_count = serializers.SerializerMethodField()
     comments_count = serializers.SerializerMethodField()
 
