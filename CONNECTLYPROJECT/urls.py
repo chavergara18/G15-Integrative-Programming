@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.urls import path, include
 from django.contrib import admin
-from posts.views import GoogleLogin, GoogleAuthVerifyView
+from posts.views import GoogleLogin  
+from posts.views import NewsFeedView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,8 +25,9 @@ urlpatterns = [
     path("api/", include("posts.urls")), 
     path('api/token/', include('dj_rest_auth.urls')),  
     path('auth/google/login/', GoogleLogin.as_view(), name='google_login'),
-    path('auth/google/verify/', GoogleAuthVerifyView.as_view(), name='google_verify'),
+     path("feed/", NewsFeedView.as_view(), name="news_feed"),
 ]
+
 
 
 
